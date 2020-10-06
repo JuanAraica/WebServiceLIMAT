@@ -9,5 +9,10 @@ namespace WebServiceLIMAT.Models.Response
     {
         public int Exito { get; set; }
         public string Mensaje { get; set; }
+        public List<TblClientes> Data { get; set; }
+
+        public Respuesta() {
+            this.Exito = 0;
+        }
     }
 }
