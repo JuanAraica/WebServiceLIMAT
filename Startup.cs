@@ -43,14 +43,10 @@ namespace WebServiceLIMAT
             {
                 app.UseDeveloperExceptionPage();
             }
-
             app.UseHttpsRedirection();
-
             app.UseRouting();
             app.UseCors(MiCors);
-            app.UseAuthorization();
-            
-
+            app.UseAuthorization();           
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

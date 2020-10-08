@@ -17,28 +17,51 @@ namespace WebServiceLIMAT.Controllers
     {
         [HttpGet]
         public IActionResult ViewClientes() {
-            Respuesta oRespuesta = new Respuesta();
+            Respuesta<List<TblClientes>> oRespuesta = new Respuesta<List<TblClientes>>();
             try
             {
-            using (gdlimatContext db= new gdlimatContext())
-            {
-                var lst = db.TblClientes.ToList();
-                oRespuesta.Exito = 1;
-                oRespuesta.Data = lst;
-            }
+                using (gdlimatContext db = new gdlimatContext())
+                {
+                    var lst = db.TblClientes.ToList();
+                    oRespuesta.Exito = 1;
+                    oRespuesta.Data = lst;
+                }
 
             }
             catch (Exception ex)
             {
 
-                oRespuesta.Mensaje=ex.Message;
+                oRespuesta.Mensaje = ex.Message;
             }
             return Ok(oRespuesta);
         }
+
+        [HttpGet("{NombreCliente}")]
+        public IActionResult ViewClientes(string NombreCliente)
+        {
+            Respuesta<TblClientes> oRespuesta = new Respuesta<TblClientes>();
+            try
+            {
+                using (gdlimatContext db = new gdlimatContext())
+                {
+                    var lst = db.TblClientes.Find(NombreCliente);
+                    oRespuesta.Exito = 1;
+                    oRespuesta.Data = lst;
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                oRespuesta.Mensaje = ex.Message;
+            }
+            return Ok(oRespuesta);
+        }
+
         [HttpPost]
         public IActionResult AddCliente(ClienteRequest model)
         {
-            Respuesta oRespuesta = new Respuesta();
+            Respuesta<object> oRespuesta = new Respuesta<object>();
             try
             {
                 using (gdlimatContext db = new gdlimatContext())
@@ -66,7 +89,7 @@ namespace WebServiceLIMAT.Controllers
         [HttpPut]
         public IActionResult EditCliente(ClienteRequest model)
         {
-            Respuesta oRespuesta = new Respuesta();
+            Respuesta<object> oRespuesta = new Respuesta<object>();
             try
             {
                 using (gdlimatContext db = new gdlimatContext())
@@ -94,7 +117,7 @@ namespace WebServiceLIMAT.Controllers
         [HttpDelete("NombreCliente")]
         public IActionResult DeleteCliente(string NombreCliente)
         {
-            Respuesta oRespuesta = new Respuesta();
+            Respuesta<object> oRespuesta = new Respuesta<object>();
             try
             {
                 using (gdlimatContext db = new gdlimatContext())
